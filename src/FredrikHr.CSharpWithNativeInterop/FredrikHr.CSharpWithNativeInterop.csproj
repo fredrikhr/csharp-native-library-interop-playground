@@ -1,6 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <!-- Must use x86 (not Win32) here. x86 is a well-known Platform name in the SDK -->
+    <Platform Condition=" '$(Platform)' == '' or '$(Platform)' == 'AnyCPU' ">x86</Platform>
     <Platforms>x86;x64</Platforms>
   </PropertyGroup>
 
@@ -8,5 +10,50 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FredrikHr.CppNativeLibrary\FredrikHr.CppNativeLibrary.vcxproj">
+      <SetConfiguration>Configuration=$(Configuration)</SetConfiguration>
+      <!-- Gotcha: VCX Projects use Win32 instead of x86 -->
+      <SetPlatform Condition="'$(Platform)' != 'x86' ">Platform=$(Platform)</SetPlatform>
+      <SetPlatform Condition="'$(Platform)' == 'x86' ">Platform=Win32</SetPlatform>
+      <BuildReference>true</BuildReference>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+
+  <Target Name="_GetCopyToOutputDirectoryFromTransitiveVCXProjectReferences" BeforeTargets="GetCopyToOutputDirectoryItems">
+    <!-- Get target path from transitive native projects -->
+    <MSBuild Projects="@(_MSBuildProjectReferenceExistent-&gt;WithMetadataValue('Extension', '.vcxproj'))"
+             Targets="GetTargetPath" BuildInParallel="$(BuildInParallel)"
+             Properties="%(_MSBuildProjectReferenceExistent.SetConfiguration); %(_MSBuildProjectReferenceExistent.SetPlatform); %(_MSBuildProjectReferenceExistent.SetTargetFramework)"
+             Condition="'@(_MSBuildProjectReferenceExistent)' != '' and '$(_GetChildProjectCopyToOutputDirectoryItems)' == 'true' and '%(_MSBuildProjectReferenceExistent.Private)' != 'false' and '$(UseCommonOutputDirectory)' != 'true'"
+             ContinueOnError="$(ContinueOnError)" SkipNonexistentTargets="true"
+             RemoveProperties="%(_MSBuildProjectReferenceExistent.GlobalPropertiesToRemove)$(_GlobalPropertiesToRemoveFromProjectReferences)">
+      <Output TaskParameter="TargetOutputs" ItemName="_AllChildVcxProjectTargetPath" />
+    </MSBuild>
+
+    <!-- Extrapolate PDB file and add if it exists -->
+    <ItemGroup>
+      <_AllChildVcxProjectPdbPath Include="@(_AllChildVcxProjectTargetPath->'%(rootdir)%(directory)%(filename).pdb')" />
+      <_AllChildVcxProjectPdbPath Remove="@(_AllChildVcxProjectPdbPath)" Condition="!Exists('%(FullPath)')" />
+    </ItemGroup>
+
+    <!-- Target outputs must be full paths because they will be consumed by a different project. -->
+    <ItemGroup>
+      <!-- GetCopyToOutputDirectoryItems uses _TransitiveItemsToCopyToOutputDirectory for housekeeping of items to copy to output directory. -->
+      <_TransitiveItemsToCopyToOutputDirectory KeepDuplicates="false" KeepMetadata="true"
+                                               Include="@(_AllChildVcxProjectTargetPath->'%(FullPath)');@(_AllChildVcxProjectPdbPath->'%(FullPath)')">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <TargetPath>%(Filename)%(Extension)</TargetPath>
+      </_TransitiveItemsToCopyToOutputDirectory>
+    </ItemGroup>
+
+    <!-- Remove items which we will never again use - they just sit around taking up memory otherwise -->
+    <ItemGroup>
+      <_AllChildVcxProjectTargetPath Remove="@(_AllChildVcxProjectTargetPath)" />
+    </ItemGroup>
+    
+  </Target>
 
 </Project>
