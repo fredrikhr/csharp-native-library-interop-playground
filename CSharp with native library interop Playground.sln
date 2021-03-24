@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7C412689-442
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FredrikHr.CSharpWithNativeInterop", "src\FredrikHr.CSharpWithNativeInterop\FredrikHr.CSharpWithNativeInterop.csproj", "{8C8FF165-1AE4-47BD-BD90-388B6CDA4E20}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FredrikHr.CppNativeLibrary", "src\FredrikHr.CppNativeLibrary\FredrikHr.CppNativeLibrary.vcxproj", "{4C4E833C-8BE3-4813-A262-495611A5DD9F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -34,12 +36,21 @@ Global
 		{8C8FF165-1AE4-47BD-BD90-388B6CDA4E20}.Release|x64.Build.0 = Release|x64
 		{8C8FF165-1AE4-47BD-BD90-388B6CDA4E20}.Release|x86.ActiveCfg = Release|x86
 		{8C8FF165-1AE4-47BD-BD90-388B6CDA4E20}.Release|x86.Build.0 = Release|x86
+		{4C4E833C-8BE3-4813-A262-495611A5DD9F}.Debug|x64.ActiveCfg = Debug|x64
+		{4C4E833C-8BE3-4813-A262-495611A5DD9F}.Debug|x64.Build.0 = Debug|x64
+		{4C4E833C-8BE3-4813-A262-495611A5DD9F}.Debug|x86.ActiveCfg = Debug|Win32
+		{4C4E833C-8BE3-4813-A262-495611A5DD9F}.Debug|x86.Build.0 = Debug|Win32
+		{4C4E833C-8BE3-4813-A262-495611A5DD9F}.Release|x64.ActiveCfg = Release|x64
+		{4C4E833C-8BE3-4813-A262-495611A5DD9F}.Release|x64.Build.0 = Release|x64
+		{4C4E833C-8BE3-4813-A262-495611A5DD9F}.Release|x86.ActiveCfg = Release|Win32
+		{4C4E833C-8BE3-4813-A262-495611A5DD9F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8C8FF165-1AE4-47BD-BD90-388B6CDA4E20} = {7C412689-442F-4B02-822D-952CDB863F71}
+		{4C4E833C-8BE3-4813-A262-495611A5DD9F} = {7C412689-442F-4B02-822D-952CDB863F71}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9551DCF6-F1BA-4158-9991-407D93282091}
