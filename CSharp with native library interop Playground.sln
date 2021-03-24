@@ -14,17 +14,32 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		LICENSE = LICENSE
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7C412689-442F-4B02-822D-952CDB863F71}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FredrikHr.CSharpWithNativeInterop", "src\FredrikHr.CSharpWithNativeInterop\FredrikHr.CSharpWithNativeInterop.csproj", "{8C8FF165-1AE4-47BD-BD90-388B6CDA4E20}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
-		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8C8FF165-1AE4-47BD-BD90-388B6CDA4E20}.Debug|x64.ActiveCfg = Debug|x64
+		{8C8FF165-1AE4-47BD-BD90-388B6CDA4E20}.Debug|x64.Build.0 = Debug|x64
+		{8C8FF165-1AE4-47BD-BD90-388B6CDA4E20}.Debug|x86.ActiveCfg = Debug|x86
+		{8C8FF165-1AE4-47BD-BD90-388B6CDA4E20}.Debug|x86.Build.0 = Debug|x86
+		{8C8FF165-1AE4-47BD-BD90-388B6CDA4E20}.Release|x64.ActiveCfg = Release|x64
+		{8C8FF165-1AE4-47BD-BD90-388B6CDA4E20}.Release|x64.Build.0 = Release|x64
+		{8C8FF165-1AE4-47BD-BD90-388B6CDA4E20}.Release|x86.ActiveCfg = Release|x86
+		{8C8FF165-1AE4-47BD-BD90-388B6CDA4E20}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8C8FF165-1AE4-47BD-BD90-388B6CDA4E20} = {7C412689-442F-4B02-822D-952CDB863F71}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9551DCF6-F1BA-4158-9991-407D93282091}
