@@ -1,14 +1,17 @@
-using System.Runtime.InteropServices;
 
 namespace FredrikHr.CSharpWithNativeInterop
 {
+    using static NativeMethods;
+
     public static class Program
     {
-        [DllImport("FredrikHr.CppNativeLibrary.dll", CallingConvention = CallingConvention.Cdecl)]
-        private static extern int WriteToStdOut();
-
         public static void Main()
         {
+            foreach (ref int pNum in MyNativeNumbers)
+            {
+                pNum = 42;
+            }
+
             int charsWritten = WriteToStdOut();
             _ = charsWritten;
         }
